@@ -1,5 +1,7 @@
 package co.k2web.springboot.service;
 
+import co.k2web.springboot.constants.Constants;
+import co.k2web.springboot.dto.User;
 import co.k2web.springboot.scheduler.Scheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,16 @@ import java.util.Map;
 public class RequestService {
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd-HH-mm-ss";
     private static final Logger logger = LoggerFactory.getLogger(Scheduler.class);
+
+    public void handleRequest(User user) {
+        File requestDataFile = createFile(Constants.USER_REQUEST_LOG_FILE_PATH);
+
+        String requestContent = user.getContent();
+
+        Map<String, String> requestMap = storeRequest(requestContent);
+
+        writeFile(requestDataFile, requestMap);
+    }
 
     public File createFile(String path){
         File file = new File(path);
