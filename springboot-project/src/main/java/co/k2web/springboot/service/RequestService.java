@@ -25,20 +25,23 @@ public class RequestService {
     private static final String CONTENT_VALUE_REQUEST = "REQUEST";
 
     public void handleRequest(User user) {
-        //Check value of content
-        String requestContent = user.getContent();
-        checkValueContent(requestContent);
+        String valueContent = user.getContent();
 
+        // Check value of content
+        checkValueContent(valueContent);
+
+        // Create file log request
         File requestDataFile = createFile(Constants.USER_REQUEST_LOG_FILE_PATH);
 
+        // Store request into a hashMap
+        Map<String, String> requestMap = storeRequest(valueContent);
 
-        Map<String, String> requestMap = storeRequest(requestContent);
-
+        // Write to file
         writeFile(requestDataFile, requestMap);
     }
 
-    private void checkValueContent(String requestContent) {
-        if (!CONTENT_VALUE_REQUEST.equals(requestContent)) {
+    private void checkValueContent(String valueContent) {
+        if (!CONTENT_VALUE_REQUEST.equals(valueContent)) {
             throw new ValidationException(MessageConstants.INVALID_VALUE_FIELD_CONTENT);
         }
     }

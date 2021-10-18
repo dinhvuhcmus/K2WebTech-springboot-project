@@ -28,6 +28,7 @@ public class Scheduler {
 
     @Scheduled(fixedRate = 10000)
     public void scheduler() {
+        // Get listUser from file log request
         LinkedHashMap<String, String> listUser = getListUserRequestFromTextFile();
 
         // create file if it not exist

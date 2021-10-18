@@ -19,10 +19,9 @@ public class RequestController {
     @Autowired
     private RequestService requestService;
 
-    @PostMapping(path = "/user-request")
-
     //Add @Valid before @RequestBody to validate field content not empty
-    public ResponseEntity<User> request(@RequestBody User user) {
+    @PostMapping(path = "/user-request")
+    public ResponseEntity<User> createRequest(@RequestBody User user) {
         requestService.handleRequest(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
