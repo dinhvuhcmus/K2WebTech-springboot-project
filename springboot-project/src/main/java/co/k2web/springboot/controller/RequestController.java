@@ -20,7 +20,9 @@ public class RequestController {
     private RequestService requestService;
 
     @PostMapping(path = "/user-request")
-    public ResponseEntity<User> request(@Valid @RequestBody User user) {
+
+    //Add @Valid before @RequestBody to validate field content not empty
+    public ResponseEntity<User> request(@RequestBody User user) {
         requestService.handleRequest(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }

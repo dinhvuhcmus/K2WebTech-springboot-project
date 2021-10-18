@@ -1,9 +1,11 @@
 package co.k2web.springboot.dto;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 public class User {
-    @NotBlank
+
+    //content should not be empty
+    @NotEmpty
     private String content;
 
     public String getContent() {

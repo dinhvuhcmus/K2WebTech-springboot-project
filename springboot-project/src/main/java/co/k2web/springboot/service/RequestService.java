@@ -1,7 +1,9 @@
 package co.k2web.springboot.service;
 
 import co.k2web.springboot.constants.Constants;
+import co.k2web.springboot.constants.MessageConstants;
 import co.k2web.springboot.dto.User;
+import co.k2web.springboot.exception.ValidationException;
 import co.k2web.springboot.scheduler.Scheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,15 +22,25 @@ import java.util.Map;
 public class RequestService {
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd-HH-mm-ss";
     private static final Logger logger = LoggerFactory.getLogger(Scheduler.class);
+    private static final String CONTENT_VALUE_REQUEST = "REQUEST";
 
     public void handleRequest(User user) {
+        //Check value of content
+        String requestContent = user.getContent();
+        checkValueContent(requestContent);
+
         File requestDataFile = createFile(Constants.USER_REQUEST_LOG_FILE_PATH);
 
-        String requestContent = user.getContent();
 
         Map<String, String> requestMap = storeRequest(requestContent);
 
         writeFile(requestDataFile, requestMap);
+    }
+
+    private void checkValueContent(String requestContent) {
+        if (!CONTENT_VALUE_REQUEST.equals(requestContent)) {
+            throw new ValidationException(MessageConstants.INVALID_VALUE_FIELD_CONTENT);
+        }
     }
 
     public File createFile(String path){
