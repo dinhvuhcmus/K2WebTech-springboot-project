@@ -4,8 +4,11 @@ import javax.validation.constraints.NotEmpty;
 
 public class User {
 
-    //content should not be empty
-    @NotEmpty
+    /*
+        Exactly, only value "REQUEST" is just accepted
+     */
+
+//    @NotEmpty
     private String content;
 
     public String getContent() {

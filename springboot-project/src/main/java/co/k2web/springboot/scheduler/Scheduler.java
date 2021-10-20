@@ -26,7 +26,9 @@ public class Scheduler {
     private static final Logger logger = LoggerFactory.getLogger(Scheduler.class);
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
 
-    @Scheduled(fixedRate = 10000)
+    // Change the time in fixRate to a small number for easy testing
+    // default: 3600000
+    @Scheduled(fixedRate = 30000)
     public void scheduler() {
         // Get listUser from file log request
         LinkedHashMap<String, String> listUser = getListUserRequestFromTextFile();
